@@ -1,0 +1,29 @@
+[project]
+name = "bdr-wizard"
+version = "0.1.0"
+description = "Локальный мастер сборки БДР из Excel-файлов"
+requires-python = ">=3.11"
+dependencies = [
+    "cryptography>=42.0.0",
+    "fastapi>=0.111.0",
+    "jinja2>=3.1.0",
+    "openpyxl>=3.1.2",
+    "pandas>=2.0.0",
+    "pandera>=0.20.0",
+    "pydantic>=2.6.0",
+    "python-multipart>=0.0.9",
+    "uvicorn>=0.29.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+]
+e2e = [
+    "playwright>=1.45.0",
+    "uvicorn>=0.29.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
