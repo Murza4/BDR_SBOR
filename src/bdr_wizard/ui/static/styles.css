@@ -1,0 +1,242 @@
+:root {
+  color-scheme: light;
+  --bg: #f5f7f9;
+  --panel: #ffffff;
+  --text: #17212b;
+  --muted: #5d6b7a;
+  --line: #d8e0e8;
+  --accent: #176b87;
+  --accent-dark: #0f4f65;
+  --warn: #8a5a00;
+  --error: #a32020;
+  --ok: #1f7a4d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 20px 48px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+  margin-bottom: 22px;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  letter-spacing: 0;
+}
+
+h1 {
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 21px;
+  margin-bottom: 14px;
+}
+
+h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+p {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  margin: 0 0 22px;
+  list-style: none;
+}
+
+.steps li {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.steps .active {
+  border-color: var(--accent);
+  color: var(--accent-dark);
+  font-weight: 700;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+  margin-bottom: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.file-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  background: #fff;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.warning {
+  color: var(--warn);
+  background: #fff7e5;
+  border: 1px solid #f2d59b;
+  padding: 10px 12px;
+  border-radius: 6px;
+}
+
+.error {
+  color: var(--error);
+  background: #ffecec;
+  border: 1px solid #f2b8b8;
+  padding: 10px 12px;
+  border-radius: 6px;
+}
+
+.ok {
+  color: var(--ok);
+}
+
+button,
+.button,
+.upload-label {
+  appearance: none;
+  border: 0;
+  background: var(--accent);
+  color: #fff;
+  padding: 11px 15px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+}
+
+button:hover,
+.button:hover,
+.upload-label:hover {
+  background: var(--accent-dark);
+}
+
+.button.secondary {
+  background: #e8eef3;
+  color: var(--text);
+}
+
+select,
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  min-height: 40px;
+  padding: 8px 10px;
+  background: #fff;
+  color: var(--text);
+}
+
+label {
+  display: block;
+  margin: 12px 0 6px;
+  font-weight: 700;
+}
+
+.auth-panel {
+  max-width: 420px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border-bottom: 1px solid var(--line);
+  padding: 9px 8px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.hidden-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.file-list {
+  margin-top: 12px;
+  color: var(--muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.pill {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 4px 8px;
+  background: #eef5f8;
+  color: var(--accent-dark);
+  font-size: 12px;
+}
+
+@media (max-width: 700px) {
+  .topbar {
+    flex-direction: column;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+}
