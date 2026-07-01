@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="panel">
+  <h2>Не удалось выполнить действие</h2>
+  <div class="error">{{ message }}</div>
+  <div class="actions">
+    <a class="button secondary" href="/">Вернуться к загрузке</a>
+  </div>
+</section>
+{% endblock %}
