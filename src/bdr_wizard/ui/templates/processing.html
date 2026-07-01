@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block steps %}
+<ol class="steps">
+  <li>1. Загрузка</li>
+  <li class="active">2. Распознавание</li>
+  <li>3. Маппинг</li>
+  <li>4. Результат</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+<section class="panel">
+  <h2>Идет обработка файлов</h2>
+  {% if status.state == "ошибка" %}
+    <div class="error">{{ status.error }}</div>
+    <div class="actions">
+      <a class="button secondary" href="/">Вернуться к загрузке</a>
+    </div>
+  {% else %}
+    <p>Система анализирует структуру workbook, листы, заголовки, формулы и похожие файлы.</p>
+    <p><span class="pill">Статус: {{ status.state }}</span></p>
+    <meta http-equiv="refresh" content="2" />
+  {% endif %}
+</section>
+{% endblock %}
