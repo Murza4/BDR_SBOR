@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block steps %}
+<ol class="steps">
+  <li>1. Загрузка</li>
+  <li>2. Предпросмотр</li>
+  <li class="active">3. Маппинг</li>
+  <li>4. Результат</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+<form action="/sessions/{{ session.id }}/mapping" method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+  <section class="panel">
+    <h2>Сопоставьте поля итогового БДР</h2>
+    <p>Система предлагает варианты по заголовкам, синонимам, роли файла и плотности данных. Проверьте выбор перед сборкой результата.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Поле БДР</th>
+          <th>Источник</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for target_field in target_fields %}
+        {% set index = loop.index0 %}
+        {% set current = session.mapping_rules | selectattr("target_field", "equalto", target_field) | list | first %}
+        <tr>
+          <td>{{ target_field }}</td>
+          <td>
+            <select name="mapping_{{ index }}">
+              <option value="">Не выбрано</option>
+              {% for candidate in choices_by_field[target_field] %}
+                {% set profile = profiles_by_id[candidate.source_file_id] %}
+                {% set option_value = candidate.source_file_id ~ "|||" ~ candidate.source_sheet ~ "|||" ~ candidate.source_header %}
+                <option value="{{ option_value }}"
+                  {% if current and current.source_file_id == candidate.source_file_id and current.source_sheet == candidate.source_sheet and current.source_header == candidate.source_header %}selected{% endif %}>
+                  {{ profile.original_name }} · {{ candidate.source_sheet }} · {{ candidate.source_header }} · оценка {{ (candidate.score * 100) | round | int }}%
+                </option>
+              {% endfor %}
+            </select>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  <div class="actions">
+    <a class="button secondary" href="/sessions/{{ session.id }}/preview">Вернуться к предпросмотру</a>
+    <button type="submit">Собрать БДР</button>
+  </div>
+</form>
+{% endblock %}
