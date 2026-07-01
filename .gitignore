@@ -6,10 +6,10 @@ __pycache__/
 data/uploads/*
 data/outputs/*
 data/reports/*
-data/cache/*
 data/*.sqlite3
-data/bdr_encryption.key
+data/*.key
 data/mapping_rules.json
+data/cache/*
 !data/cache/.gitkeep
 !data/uploads/.gitkeep
 !data/outputs/.gitkeep
