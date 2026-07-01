@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block steps %}
+<ol class="steps">
+  <li>1. Загрузка</li>
+  <li>2. Предпросмотр</li>
+  <li>3. Маппинг</li>
+  <li class="active">4. Результат</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+<section class="panel">
+  <h2>Итоговый БДР готов</h2>
+  <p>Файл собран по подтвержденным правилам. Отчет содержит ошибки, предупреждения, статистику и журнал принятых решений.</p>
+  <div class="actions">
+    <a class="button" href="/sessions/{{ session.id }}/download/result">Скачать итоговый БДР</a>
+    <a class="button secondary" href="/sessions/{{ session.id }}/download/report">Скачать отчет</a>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Итоги обработки</h2>
+  <table>
+    <thead>
+      <tr><th>Тип</th><th>Код</th><th>Сообщение</th></tr>
+    </thead>
+    <tbody>
+      {% for decision in session.decisions %}
+      <tr>
+        <td>{{ decision.severity.value }}</td>
+        <td>{{ decision.code }}</td>
+        <td>{{ decision.message }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}
+
