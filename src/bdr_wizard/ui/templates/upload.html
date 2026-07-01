@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block steps %}
+<ol class="steps">
+  <li class="active">1. Загрузка</li>
+  <li>2. Предпросмотр</li>
+  <li>3. Маппинг</li>
+  <li>4. Результат</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+<section class="panel">
+  <h2>Загрузите до 7 Excel-файлов</h2>
+  <p>Поддерживаются форматы .xlsx и .xlsm. После загрузки система проанализирует листы, заголовки, формулы и похожие структуры.</p>
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+  <form action="/sessions" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+    <label class="upload-label" for="files">Выбрать Excel-файлы</label>
+    <input class="hidden-input" id="files" name="files" type="file" accept=".xlsx,.xlsm" multiple required />
+    <div class="file-list" id="file-list">Файлы пока не выбраны.</div>
+    <div class="actions">
+      <button type="submit">Начать распознавание</button>
+    </div>
+  </form>
+</section>
+<script>
+  const input = document.getElementById("files");
+  const list = document.getElementById("file-list");
+  input.addEventListener("change", () => {
+    const names = Array.from(input.files).map((file) => file.name);
+    list.textContent = names.length ? names.join(", ") : "Файлы пока не выбраны.";
+  });
+</script>
+{% endblock %}
