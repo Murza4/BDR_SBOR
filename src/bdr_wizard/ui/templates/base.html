@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ title }} · Мастер сборки БДР</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <div class="topbar">
+        <div>
+          <h1>Мастер сборки БДР</h1>
+          <p>Загрузка, распознавание, сопоставление и сборка итогового Excel-файла.</p>
+        </div>
+      </div>
+      {% block steps %}{% endblock %}
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>
+
