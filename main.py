@@ -1,3 +1,2 @@
-from bdr_wizard.ui.app import app
+from bdr_wizard.ui import app
 
-__all__ = ["app"]
