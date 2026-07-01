@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block steps %}
+<ol class="steps">
+  <li>1. Загрузка</li>
+  <li class="active">2. Предпросмотр</li>
+  <li>3. Маппинг</li>
+  <li>4. Результат</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+<form action="/sessions/{{ session.id }}/preview" method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+  <section class="panel">
+    <h2>Проверьте роли файлов</h2>
+    <p>Если система не уверена, выберите роль вручную. Решение будет использовано на следующем шаге.</p>
+    <div class="grid">
+      {% for profile in session.profiles %}
+      <article class="file-card">
+        <h3>{{ profile.original_name }}</h3>
+        <p><span class="pill">Уверенность: {{ (profile.role_confidence * 100) | round | int }}%</span></p>
+        <label for="role_{{ profile.file_id }}">Роль файла</label>
+        <select id="role_{{ profile.file_id }}" name="role_{{ profile.file_id }}">
+          {% for role in roles %}
+            <option value="{{ role.value }}" {% if role == profile.detected_role %}selected{% endif %}>{{ role_labels[role] }}</option>
+          {% endfor %}
+        </select>
+        <p>{{ "; ".join(profile.role_reasons) }}</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Лист</th>
+              <th>Размер</th>
+              <th>Формул</th>
+              <th>Заголовки</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for sheet in profile.sheets %}
+            <tr>
+              <td>{{ sheet.name }}</td>
+              <td>{{ sheet.max_row }} × {{ sheet.max_column }}</td>
+              <td>{{ sheet.formula_cells }}</td>
+              <td>{{ ", ".join(sheet.headers[:6]) if sheet.headers else "не найдены" }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Предупреждения и решения</h2>
+    {% if session.decisions %}
+      <table>
+        <thead>
+          <tr><th>Тип</th><th>Код</th><th>Сообщение</th></tr>
+        </thead>
+        <tbody>
+          {% for decision in session.decisions %}
+          <tr>
+            <td>{{ decision.severity.value }}</td>
+            <td>{{ decision.code }}</td>
+            <td>{{ decision.message }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="ok">Ошибки и предупреждения не найдены.</p>
+    {% endif %}
+  </section>
+
+  <div class="actions">
+    <button type="submit">Перейти к сопоставлению</button>
+  </div>
+</form>
+{% endblock %}
