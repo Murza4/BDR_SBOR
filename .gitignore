@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+data/uploads/*
+data/outputs/*
+data/reports/*
+data/cache/*
+data/*.sqlite3
+data/bdr_encryption.key
+data/mapping_rules.json
+!data/cache/.gitkeep
+!data/uploads/.gitkeep
+!data/outputs/.gitkeep
+!data/reports/.gitkeep
